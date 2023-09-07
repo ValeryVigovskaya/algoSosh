@@ -1,0 +1,19 @@
+.input_container {
+  margin: 0 auto;
+  max-width: 522px;
+  display: flex;
+  gap: 12px;
+}
+
+.circle_container {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  padding-top: 120px;
+  padding-left: 0;
+  list-style-type: none;
+  gap: 16px;
+}
+
+.circle_item {
+}
