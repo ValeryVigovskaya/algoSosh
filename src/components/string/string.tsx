@@ -52,7 +52,7 @@ export const StringComponent: React.FC = () => {
       <ul className={styles.circle_container}>
         {stringArr?.map((item, index) => (
           <li key={index} className={styles.circle_item}>
-            <Circle letter={item.value} state={item.color} />
+            <Circle letter={item.value} state={item.color} extraClass={`${styles.fadeIn}`}/>
           </li>
         ))}
       </ul>

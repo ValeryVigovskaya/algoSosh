@@ -15,5 +15,12 @@
   gap: 16px;
 }
 
-.circle_item {
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+ 
+.fadeIn {
+  animation-name: fadeIn;
+  animation-duration: 1s;
 }
