@@ -1,0 +1,37 @@
+.input_container {
+    margin: 0 auto;
+    max-width: 980px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+.radio_container {
+    max-width: 221px;
+    display: flex;
+    gap: 40px;
+    justify-content: space-between;
+}
+
+.buttons_container{
+    margin-left: 52px;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    width: 707px;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.button_descending {
+    justify-self: start;
+}
+
+.column_container {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    align-items: end;
+    gap: 10px;
+    padding-top: 48px;
+}

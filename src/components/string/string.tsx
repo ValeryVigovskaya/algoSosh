@@ -5,7 +5,8 @@ import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
 import styles from "./string.module.css";
 import { useState } from "react";
-import { sortArray, timeout } from "../../utils/functions";
+import { timeout } from "../../utils/functions";
+import {sortArray} from "../string/utils"
 import { DELAY_IN_MS } from "../../constants/delays";
 import { useForm } from "../../hooks/hooks";
 import { ElementStates } from "../../types/element-states";
@@ -52,7 +53,11 @@ export const StringComponent: React.FC = () => {
       <ul className={styles.circle_container}>
         {stringArr?.map((item, index) => (
           <li key={index} className={styles.circle_item}>
-            <Circle letter={item.value} state={item.color} extraClass={`${styles.fadeIn}`}/>
+            <Circle
+              letter={item.value}
+              state={item.color}
+              extraClass={`${styles.fadeIn}`}
+            />
           </li>
         ))}
       </ul>
