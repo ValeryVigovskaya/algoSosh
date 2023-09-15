@@ -22,9 +22,9 @@ export const selectionSort = async (
   arr: INumber[],
   setState: React.Dispatch<React.SetStateAction<INumber[]>>,
   loader: (value: React.SetStateAction<boolean>) => void,
-  derection: Direction
+  derection: Direction,
+  disabled: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
-  loader(true);
   let { length } = arr;
   for (let i = 0; i < length; i++) {
     let max = i;
@@ -57,6 +57,7 @@ export const selectionSort = async (
     setState([...arr]);
   }
   loader(false);
+  disabled(false);
   return arr;
 };
 
@@ -64,9 +65,11 @@ export const selectionSort = async (
 export const bubbleSort = async (
   arr: INumber[],
   setState: React.Dispatch<React.SetStateAction<INumber[]>>,
-  loader: (value: React.SetStateAction<boolean>) => void
+  loader: (value: React.SetStateAction<boolean>) => void,
+  derection: Direction,
+  disabled: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
-  loader(true);
+  //loader(true);
   let { length } = arr;
   for (let i = 0; i < length; i++) {
     for (let j = 0; j < length - i - 1; j++) {
@@ -74,7 +77,9 @@ export const bubbleSort = async (
       arr[j+1].color = ElementStates.Changing;
       setState([...arr]);
       await timeout(SHORT_DELAY_IN_MS);
-      if (arr[j].value < arr[j + 1].value) {
+      if (derection === Direction.Ascending && arr[j].value < arr[j + 1].value) {
+        swap(arr, j, j + 1);
+      } else if (derection === Direction.Descending && arr[j].value > arr[j + 1].value){
         swap(arr, j, j + 1);
       }
       arr[j].color = ElementStates.Default;
@@ -85,5 +90,6 @@ export const bubbleSort = async (
     setState([...arr]);
   }
   loader(false);
+  disabled(false);
   return arr;
 };
