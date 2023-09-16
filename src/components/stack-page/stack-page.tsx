@@ -74,7 +74,7 @@ export const StackPage: React.FC = () => {
           />
           <Button
             text="Очистить"
-            type="submit"
+            type="button"
             extraClass={styles.clear}
             onClick={(e) => onClick(e, "Очистить")}
             disabled={stack.getSize() > 0 ? false : true}
