@@ -1,8 +1,9 @@
-import { INumber } from "./sorting-page";
+import { INumber } from "../../types/my-types";
 import { swap, timeout } from "../../utils/functions";
 import { ElementStates } from "../../types/element-states";
 import { SHORT_DELAY_IN_MS } from "../../constants/delays";
 import { Direction } from "../../types/direction";
+
 export const randomArr = (min: number, max: number): INumber[] => {
   const arr: INumber[] = [];
   min = Math.ceil(min);
@@ -27,28 +28,28 @@ export const selectionSort = async (
 ) => {
   let { length } = arr;
   for (let i = 0; i < length; i++) {
-    let max = i;
-    arr[max].color = ElementStates.Changing;
+    let maxMax = i;
+    arr[maxMax].color = ElementStates.Changing;
     setState([...arr]);
     for (let j = i + 1; j < length; j++) {
       arr[j].color = ElementStates.Changing;
       setState([...arr]);
       await timeout(SHORT_DELAY_IN_MS);
-      if (derection === Direction.Ascending && arr[j].value > arr[max].value) {
-        max = j;
+      if (derection === Direction.Ascending && arr[j].value > arr[maxMax].value) {
+        maxMax = j;
       } else if (
         derection === Direction.Descending &&
-        arr[j].value < arr[max].value
+        arr[j].value < arr[maxMax].value
       ) {
-        max = j;
+        maxMax = j;
       }
       arr[j].color = ElementStates.Default;
       setState([...arr]);
       await timeout(SHORT_DELAY_IN_MS);
     }
-    if (max !== i) {
-      swap(arr, i, max);
-      arr[max].color = ElementStates.Default;
+    if (maxMax !== i) {
+      swap(arr, i, maxMax);
+      arr[maxMax].color = ElementStates.Default;
       arr[i].color = ElementStates.Modified;
       setState([...arr]);
       await timeout(SHORT_DELAY_IN_MS);
@@ -74,12 +75,18 @@ export const bubbleSort = async (
   for (let i = 0; i < length; i++) {
     for (let j = 0; j < length - i - 1; j++) {
       arr[j].color = ElementStates.Changing;
-      arr[j+1].color = ElementStates.Changing;
+      arr[j + 1].color = ElementStates.Changing;
       setState([...arr]);
       await timeout(SHORT_DELAY_IN_MS);
-      if (derection === Direction.Ascending && arr[j].value < arr[j + 1].value) {
+      if (
+        derection === Direction.Ascending &&
+        arr[j].value < arr[j + 1].value
+      ) {
         swap(arr, j, j + 1);
-      } else if (derection === Direction.Descending && arr[j].value > arr[j + 1].value){
+      } else if (
+        derection === Direction.Descending &&
+        arr[j].value > arr[j + 1].value
+      ) {
         swap(arr, j, j + 1);
       }
       arr[j].color = ElementStates.Default;

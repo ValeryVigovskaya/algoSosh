@@ -15,15 +15,20 @@
 
 .buttons_container{
     margin-left: 52px;
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
+    display: flex;
     width: 707px;
     justify-content: space-between;
-    gap: 12px;
+    gap: 80px;
 }
 
-.button_descending {
-    justify-self: start;
+.buttons_direction {
+    width: 422px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.button {
+    width: 205px;
 }
 
 .column_container {

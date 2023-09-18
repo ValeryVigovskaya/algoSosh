@@ -9,15 +9,11 @@ import { ElementStates } from "../../types/element-states";
 import { useState } from "react";
 import { timeout } from "../../utils/functions";
 import { Circle } from "../ui/circle/circle";
-
-type IString = {
-  value?: string;
-  color?: ElementStates;
-};
-//const queue = new Queue<IString>(7);
+import { IString } from "../../types/my-types";
+import { SHORT_DELAY_IN_MS } from "../../constants/delays"
 
 export const QueuePage: React.FC = () => {
-  const initialState = Array.from({ length: 7 }).map((value) => ({
+  const initialState = Array.from({ length: 7 }).map(() => ({
     value: "",
     color: ElementStates.Default,
   })) as IString[];
@@ -32,7 +28,7 @@ export const QueuePage: React.FC = () => {
       queue.enqueue({ value: values.value, color: ElementStates.Changing });
       setQueue(queue);
       setArr([...array]);
-      await timeout(500);
+      await timeout(SHORT_DELAY_IN_MS);
       queue.getTeil()!.color = ElementStates.Default;
       setValues({ value: "" });
       setArr([...array]);
@@ -40,16 +36,16 @@ export const QueuePage: React.FC = () => {
       queue.peak()!.color = ElementStates.Changing;
       setQueue(queue);
       setArr([...array]);
-      await timeout(500);
+      await timeout(SHORT_DELAY_IN_MS);
       queue.dequeue();
       setQueue(queue);
-      await timeout(500);
+      await timeout(SHORT_DELAY_IN_MS);
       setArr([...array]);
     } else if (textButton === "Очистить") {
-        queue.clear();
+      queue.clear();
       setQueue(queue);
-      array = initialState
-      setArr([...array])
+      array = initialState;
+      setArr([...array]);
     }
   };
 

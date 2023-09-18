@@ -1,5 +1,4 @@
-import { IString } from "./list-page";
-import { timeout } from "../../utils/functions";
+import { IString } from "../../types/my-types";
 
 export const headDisplayConditions = (
   array: IString[],
@@ -36,8 +35,6 @@ export const tailDisplayConditions = (
     return 'tail';
   } else if (index === array.length - 1 && textButton === "Добавить в head") {
     return "tail";
-  } else if (index === array.length - 1 && textButton === "") {
-    return "tail";
   } else if (index === 0 && textButton === "Удалить из head" ) {
     return tail;
   } else if (index === array.length - 1 && textButton === "Добавить по индексу") {
@@ -52,7 +49,7 @@ export const tailDisplayConditions = (
     return tail;
   } else if (index === indexNumber && textButton === "Удалить по индексу") {
     return tail;
-  } else {
-    return "";
+  } else if (index === array.length - 1) {
+    return "tail";
   }
 };

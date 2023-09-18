@@ -10,10 +10,7 @@ import { useState, useEffect } from "react";
 import { ElementStates } from "../../types/element-states";
 import { timeout } from "../../utils/functions";
 import { SHORT_DELAY_IN_MS } from "../../constants/delays";
-export interface INumber {
-  value: number;
-  color?: ElementStates;
-}
+import { INumber } from "../../types/my-types";
 
 export const SortingPage: React.FC = () => {
   const [arr, setArr] = useState<INumber[]>([]);
@@ -24,7 +21,7 @@ export const SortingPage: React.FC = () => {
   const random: INumber[] = randomArr(0, 100);
 
   const newArr = async () => {
-    await timeout(500);
+    await timeout(SHORT_DELAY_IN_MS);
     const arrayObj = random.map((value) => ({
       ...value,
       color: ElementStates.Default,
@@ -43,12 +40,10 @@ export const SortingPage: React.FC = () => {
   };
 
   const onClickNewArr = async (evt: SyntheticEvent) => {
-    evt.preventDefault()
-    await timeout(500);
+    evt.preventDefault();
+    await timeout(SHORT_DELAY_IN_MS);
     setArr([...random]);
   };
-
-  //   const array = [5, 1, 4, 2, 8]
 
   const onClickButton = async (
     direction: Direction,
@@ -96,36 +91,36 @@ export const SortingPage: React.FC = () => {
           />
         </div>
         <div className={styles.buttons_container}>
-          <Button
-            text="По убыванию"
-            type="submit"
-            sorting={Direction.Ascending}
-            onClick={() => onClickButton(Direction.Ascending, radioInput)}
-            isLoader={activeLoader(Direction.Ascending)}
-            id="one"
-            disabled={disButton}
-          />
-          <Button
-            text="По возрастанию"
-            type="submit"
-            sorting={Direction.Descending}
-            extraClass={styles.button_descending}
-            id="two"
-            onClick={() => onClickButton(Direction.Descending, radioInput)}
-            isLoader={activeLoader(Direction.Descending)}
-            disabled={disButton}
-          />
+          <div className={styles.buttons_direction}>
+            <Button
+              text="По убыванию"
+              type="submit"
+              sorting={Direction.Ascending}
+              onClick={() => onClickButton(Direction.Ascending, radioInput)}
+              isLoader={activeLoader(Direction.Ascending)}
+              id="one"
+              disabled={disButton}
+              extraClass={styles.button}
+              linkedList="big"
+            />
+            <Button
+              text="По возрастанию"
+              type="submit"
+              sorting={Direction.Descending}
+              id="two"
+              onClick={() => onClickButton(Direction.Descending, radioInput)}
+              isLoader={activeLoader(Direction.Descending)}
+              disabled={disButton}
+            />
+          </div>
           <Button
             text="Новый массив"
             type="submit"
-            extraClass={styles.button_arr}
             onClick={onClickNewArr}
             id="three"
-            disabled={
-              isLoader === true
-                ? true
-                : false
-            }
+            disabled={isLoader === true ? true : false}
+            extraClass={styles.button}
+            linkedList="big"
           />
         </div>
       </form>

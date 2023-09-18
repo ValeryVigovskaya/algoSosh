@@ -1,5 +1,5 @@
-import { IString } from "../components/string/string";
-import {INumber} from "../components/sorting-page/sorting-page"
+import { IString } from "../types/my-types";
+import { INumber } from "../types/my-types";
 
 export const timeout = (delay: number) => {
   return new Promise((res) => setTimeout(res, delay));

@@ -1,8 +1,7 @@
 import { DELAY_IN_MS } from "../../constants/delays";
-import { IString } from "./string";
+import { IString } from "../../types/my-types";
 import { ElementStates } from "../../types/element-states";
 import { swap, timeout } from "../../utils/functions";
-import { start } from "repl";
 
 export const sortArray = async (
   arr: IString[],

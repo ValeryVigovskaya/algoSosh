@@ -9,14 +9,11 @@ import { ElementStates } from "../../types/element-states";
 import { useState } from "react";
 import { timeout } from "../../utils/functions";
 import { Circle } from "../ui/circle/circle";
+import { IString } from "../../types/my-types";
 
-type IString = {
-  value: string;
-  color?: ElementStates;
-};
-const stack = new Stack<IString>();
 export const StackPage: React.FC = () => {
   const { values, handleChange, setValues } = useForm({ value: "" });
+  const [stack, setStack] = useState(new Stack<IString>());
   const [arr, setArr] = useState<IString[]>([]);
 
   const onClick = async (evt: SyntheticEvent, textButton: string) => {
@@ -24,23 +21,28 @@ export const StackPage: React.FC = () => {
     const array = stack.getEl();
     if (values.value !== "" && textButton === "Добавить") {
       stack.push({ value: values.value, color: ElementStates.Changing });
+      setStack(stack);
       setArr([...array]);
       setValues({ value: "" });
       await timeout(500);
       stack.peak()!.color = ElementStates.Default;
+      setStack(stack);
       setArr([...array]);
     } else if (textButton === "Удалить") {
       stack.peak()!.color = ElementStates.Changing;
+      setStack(stack);
       setArr([...array]);
       await timeout(500);
       stack.pop();
       await timeout(500);
+      setStack(stack);
       setArr([...array]);
     } else if (textButton === "Очистить") {
       const length = stack.getSize();
       let i = 0;
       for (i; i < length; i++) {
         stack.pop();
+        setStack(stack);
       }
       setArr([...array]);
     }
@@ -65,6 +67,7 @@ export const StackPage: React.FC = () => {
             type="submit"
             onClick={(e) => onClick(e, "Добавить")}
             disabled={values.value === "" ? true : false}
+            linkedList="small"
           />
           <Button
             text="Удалить"

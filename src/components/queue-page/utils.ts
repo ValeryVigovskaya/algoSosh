@@ -2,7 +2,10 @@ interface IQueue<T> {
   enqueue: (item: T) => void;
   dequeue: () => void;
   peak: () => T | null;
+  getTeil: () => T | null;
+  getEl: () => (T | null)[];
   clear: () => void;
+  isEmpty: () => boolean;
 }
 
 export class Queue<T> implements IQueue<T> {
@@ -24,8 +27,6 @@ export class Queue<T> implements IQueue<T> {
     this.container[this.tail % this.size] = item;
     this.tail++;
     this.length++;
-    //this.size++
-    // Ваш код
   };
 
   dequeue = () => {
@@ -39,14 +40,14 @@ export class Queue<T> implements IQueue<T> {
     return item;
   };
 
-  peak = (): T | null => {
+  peak = () => {
     if (this.isEmpty()) {
       throw new Error("No elements in the queue");
     }
     return this.container[this.head];
   };
 
-  getTeil = (): T | null => {
+  getTeil = () => {
     if (this.isEmpty()) {
       throw new Error("No elements in the queue");
     }

@@ -10,10 +10,7 @@ import {sortArray} from "../string/utils"
 import { DELAY_IN_MS } from "../../constants/delays";
 import { useForm } from "../../hooks/hooks";
 import { ElementStates } from "../../types/element-states";
-export interface IString {
-  value: string;
-  color?: ElementStates;
-}
+import {IString} from "../../types/my-types"
 
 export const StringComponent: React.FC = () => {
   const { values, handleChange } = useForm({ value: "" });
