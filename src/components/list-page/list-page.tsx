@@ -126,12 +126,42 @@ export const ListPage: React.FC = () => {
   const onClickTail = async (evt: SyntheticEvent) => {
     evt.preventDefault();
     if (list.toArray().length < 6) {
-      setIsLoader(true);
-      setCurrent("Добавить в tail");
+    setIsLoader(true);
+    setCurrent("Добавить в tail");
+    await timeout(SHORT_DELAY_IN_MS);
+    list.append({ value: values.value, color: ElementStates.Modified });
+    await timeout(SHORT_DELAY_IN_MS);
+    setTextButton("Добавить в tail");
+    setHead(
+      <Circle
+        letter={values.value}
+        state={ElementStates.Changing}
+        isSmall={true}
+      />
+    );
+    setList(list);
+    await timeout(SHORT_DELAY_IN_MS);
+    setStringArr([...list.toArray()]);
+    setHead("");
+    await timeout(SHORT_DELAY_IN_MS);
+    list.toArray()[stringArr.length].color = ElementStates.Default;
+    setList(list);
+    setStringArr([...list.toArray()]);
+    setCurrent("");
+    setIsLoader(false);
+    setValues({ value: "" });
+    }
+  };
+
+  const onClickIndex = async (evt: SyntheticEvent) => {
+    evt.preventDefault();
+    if (list.toArray().length < 6) {
+    setIsLoader(true);
+    setCurrent("Добавить по индексу");
+    setTextButton("Добавить по индексу");
+    for (let i = 0; i <= indexNumber; i++) {
+      setIndex({ value: String(i) });
       await timeout(SHORT_DELAY_IN_MS);
-      list.append({ value: values.value, color: ElementStates.Modified });
-      await timeout(SHORT_DELAY_IN_MS);
-      setTextButton("Добавить в tail");
       setHead(
         <Circle
           letter={values.value}
@@ -139,65 +169,35 @@ export const ListPage: React.FC = () => {
           isSmall={true}
         />
       );
-      setList(list);
-      await timeout(SHORT_DELAY_IN_MS);
-      setStringArr([...list.toArray()]);
-      setHead("");
-      await timeout(SHORT_DELAY_IN_MS);
-      list.toArray()[stringArr.length].color = ElementStates.Default;
-      setList(list);
-      setStringArr([...list.toArray()]);
-      setCurrent("");
-      setIsLoader(false);
-      setValues({ value: "" });
-    }
-  };
-
-  const onClickIndex = async (evt: SyntheticEvent) => {
-    evt.preventDefault();
-    if (list.toArray().length < 6) {
-      setIsLoader(true);
-      setCurrent("Добавить по индексу");
-      setTextButton("Добавить по индексу");
-      for (let i = 0; i <= indexNumber; i++) {
-        setIndex({ value: String(i) });
+      if (i < indexNumber) {
         await timeout(SHORT_DELAY_IN_MS);
-        setHead(
-          <Circle
-            letter={values.value}
-            state={ElementStates.Changing}
-            isSmall={true}
-          />
-        );
-        if (i < indexNumber) {
-          await timeout(SHORT_DELAY_IN_MS);
-          list.toArray()[i].color = ElementStates.Changing;
-          setList(list);
-          setStringArr([...list.toArray()]);
-          await timeout(SHORT_DELAY_IN_MS);
-        }
+        list.toArray()[i].color = ElementStates.Changing;
+        setList(list);
+        setStringArr([...list.toArray()]);
+        await timeout(SHORT_DELAY_IN_MS);
       }
-      list.addByIndex(
-        { value: values.value, color: ElementStates.Modified },
-        indexNumber
-      );
-      setList(list);
-      setStringArr([...list.toArray()]);
-      await timeout(SHORT_DELAY_IN_MS);
-      const defaultArray = list.toArray().map((value) => ({
-        ...value,
-        color: ElementStates.Default,
-      })) as IString[];
-      setList(list);
-      setStringArr([...defaultArray]);
-      setHead("");
-
-      setCurrent("");
-      setTextButton("");
-      setIsLoader(false);
-      setValues({ value: "" });
-      setIndex({ value: "" });
     }
+    list.addByIndex(
+      { value: values.value, color: ElementStates.Modified },
+      indexNumber
+    );
+    setList(list);
+    setStringArr([...list.toArray()]);
+    await timeout(SHORT_DELAY_IN_MS);
+    const defaultArray = list.toArray().map((value) => ({
+      ...value,
+      color: ElementStates.Default,
+    })) as IString[];
+    setList(list);
+    setStringArr([...defaultArray]);
+    setHead("");
+
+    setCurrent("");
+    setTextButton("");
+    setIsLoader(false);
+    setValues({ value: "" });
+    setIndex({ value: "" });
+  }
   };
 
   const onClickDelIndex = async (evt: SyntheticEvent) => {
@@ -261,10 +261,7 @@ export const ListPage: React.FC = () => {
             type="text"
             extraClass={styles.input}
             placeholder="Введите значение"
-            disabled={
-              (isLoader ? true : false) ||
-              (list.toArray().length === 6 ? true : false)
-            }
+            disabled={(isLoader ? true : false) || (list.toArray().length === 6? true : false)}
           />
           <div className={styles.buttons_container}>
             <Button
@@ -309,10 +306,7 @@ export const ListPage: React.FC = () => {
             type="number"
             extraClass={styles.input}
             placeholder="Введите индекс"
-            disabled={
-              (isLoader ? true : false) ||
-              (list.toArray().length === 6 ? true : false)
-            }
+            disabled={(isLoader ? true : false)}
           />
           <div className={styles.buttons_index}>
             <Button
@@ -320,7 +314,7 @@ export const ListPage: React.FC = () => {
               type="submit"
               onClick={(e) => onClickIndex(e)}
               disabled={
-                values.value === "" || indexValue.value === "" ? true : false
+                ((values.value === "" || indexValue.value === "" || (list.toArray().length - 1) < Number(indexValue.value) ) ? true : false) 
               }
               linkedList="big"
               isLoader={current === "Добавить по индексу" && isLoader}
@@ -330,7 +324,7 @@ export const ListPage: React.FC = () => {
               type="submit"
               linkedList="big"
               onClick={(e) => onClickDelIndex(e)}
-              disabled={indexValue.value === "" ? true : false}
+              disabled={indexValue.value === "" || (list.toArray().length - 1) < Number(indexValue.value) ? true : false}
               isLoader={current === "Удалить по индексу" && isLoader}
             />
           </div>
