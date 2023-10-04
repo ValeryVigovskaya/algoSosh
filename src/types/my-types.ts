@@ -1,7 +1,7 @@
 import { ElementStates } from "./element-states";
 
 export interface IString {
-  value: string;
+  value?: string;
   color?: ElementStates;
 }
 
