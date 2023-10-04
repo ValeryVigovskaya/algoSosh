@@ -26,6 +26,9 @@ export const selectionSort = async (
   derection: Direction,
   disabled: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
+  if (arr.length === 0){
+    return arr;
+  }
   let { length } = arr;
   for (let i = 0; i < length; i++) {
     let maxMax = i;
@@ -35,11 +38,11 @@ export const selectionSort = async (
       arr[j].color = ElementStates.Changing;
       setState([...arr]);
       await timeout(SHORT_DELAY_IN_MS);
-      if (derection === Direction.Ascending && arr[j].value > arr[maxMax].value) {
+      if (derection === Direction.Ascending && arr[j].value! > arr[maxMax].value!) {
         maxMax = j;
       } else if (
         derection === Direction.Descending &&
-        arr[j].value < arr[maxMax].value
+        arr[j].value! < arr[maxMax].value!
       ) {
         maxMax = j;
       }
@@ -70,7 +73,9 @@ export const bubbleSort = async (
   derection: Direction,
   disabled: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
-  //loader(true);
+  if (arr.length === 0){
+    return arr;
+  }
   let { length } = arr;
   for (let i = 0; i < length; i++) {
     for (let j = 0; j < length - i - 1; j++) {
@@ -80,12 +85,12 @@ export const bubbleSort = async (
       await timeout(SHORT_DELAY_IN_MS);
       if (
         derection === Direction.Ascending &&
-        arr[j].value < arr[j + 1].value
+        arr[j].value! < arr[j + 1].value!
       ) {
         swap(arr, j, j + 1);
       } else if (
         derection === Direction.Descending &&
-        arr[j].value > arr[j + 1].value
+        arr[j].value! > arr[j + 1].value!
       ) {
         swap(arr, j, j + 1);
       }

@@ -7,10 +7,10 @@ import { IString } from "../../types/my-types";
 import { StringComponent } from "./string";
 import { BrowserRouter as Router } from "react-router-dom";
 
+describe("Тестирование корректного разворота строки", () => {
 const setState = jest.fn() as React.Dispatch<React.SetStateAction<IString[]>>;
 const loader = jest.fn() as (value: React.SetStateAction<boolean>) => void;
 
-describe("Тестирование корректного разворота строки", () => {
   test("Функция с чётным количеством символов работает без ошибок", async () => {
     const stringArray = Array.from("test");
     const testStringArray = Array.from("tset");
@@ -59,18 +59,10 @@ describe("Тестирование корректного разворота с�
     expect(sortingArr).toEqual(arrayTestObj); // Ок
   });
 
-  test("Функция с пустой строкой работает без ошибок", () => {
-    //тк функция не вызывается
-    render(
-      <Router>
-        <StringComponent />
-      </Router>
-    );
-    // Находим элемент кнопку и инпут
-    const button = screen.getByTestId("button");
-    const input = screen.getByTestId("input");
-    
-    expect(input.textContent).toBe("");
-    expect(button).toBeDisabled();
+  test("Функция с пустой строкой работает без ошибок", async() => {
+    const stringArray = [] as IString[];
+    const sortingArr = await sortArray(stringArray, setState, loader);
+
+    expect(sortingArr).toEqual(stringArray); // Ок
   });
 });
