@@ -46,7 +46,7 @@ export const StringComponent: React.FC = () => {
           isLoader={isLoader}
           onClick={onClick}
           disabled={values.value === "" ? true : false}
-          data-testid="button"
+          //data-testid="button"
         />
       </form>
       <ul className={styles.circle_container}>
