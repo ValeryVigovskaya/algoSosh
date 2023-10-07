@@ -1,4 +1,3 @@
-import { DELAY_IN_MS } from "../../src/constants/delays"
 describe('products management works correctly', function () {
     before(function () {
         cy.visit('/recursion');
@@ -18,11 +17,12 @@ describe('correct turn of the line', function () {
     before(function () {
         cy.visit('/recursion');
         cy.get('input').type('Hello');
-        cy.get('button').should('not.be.disabled').contains('Развернуть').click();
+        cy.get('[class^=string_input_container__]').find('button').should('not.be.disabled').contains('Развернуть').click();
     });
 
     it('should be the correct string reversal', function () {
         cy.get('ul>li').as('array');
+        const testArr = ['o', 'l', 'l', 'e', 'H'];
 
         //проверка перебором на дефолтное состояние
         cy.get('@array')
@@ -72,6 +72,14 @@ describe('correct turn of the line', function () {
             .each(($li) => {
                 cy.get($li).find('[class^=circle_circle__]').as('circle');
                 cy.get('@circle').should('have.css', 'border-color', 'rgb(127, 224, 81)');
+            });
+
+        //проверка корректного переворота строки
+        cy.get('@array')
+            .should('have.length', 5)
+            .each(($li, index) => {
+                cy.get($li).find('[class^=circle_circle__]').as('circle');
+                cy.get('@circle').should('contain.text', testArr[index]);
             });
     });
 })

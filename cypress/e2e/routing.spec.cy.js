@@ -8,17 +8,18 @@ describe('app works correctly with routes', function () {
     });
 
     it('should open a page with a string algorithm', function () {
-        // cy.visit(`/recursion`);
-        // cy.contains("Строка");
         cy.visit('/');
         cy.get(`[href="/recursion"]`).click();
-        cy.location('pathname').should('eq', '/recursion')
+        cy.location('pathname').should('eq', '/recursion');
+        cy.contains("Строка");
     });
 
-    // it('should open a page with the algorithm Fibonacci sequence', function () {
-    //     cy.visit(`/fibonacci`);
-    //     cy.contains("Последовательность Фибоначчи");
-    // });
+    it('should open a page with the algorithm Fibonacci sequence', function () {
+        cy.visit('/');
+        cy.get(`[href="/fibonacci"]`).click();
+        cy.location('pathname').should('eq', '/fibonacci')
+        cy.contains("Последовательность Фибоначчи");
+    });
 
     // it('should open a page with sorting algorithms', function () {
     //     cy.visit(`/sorting`);
