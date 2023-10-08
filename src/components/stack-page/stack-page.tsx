@@ -68,12 +68,14 @@ export const StackPage: React.FC = () => {
             onClick={(e) => onClick(e, "Добавить")}
             disabled={values.value === "" ? true : false}
             linkedList="small"
+            id='addButton'
           />
           <Button
             text="Удалить"
             type="submit"
             onClick={(e) => onClick(e, "Удалить")}
             disabled={stack.getSize() > 0 ? false : true}
+            id='deleteButton'
           />
           <Button
             text="Очистить"
@@ -81,6 +83,7 @@ export const StackPage: React.FC = () => {
             extraClass={styles.clear}
             onClick={(e) => onClick(e, "Очистить")}
             disabled={stack.getSize() > 0 ? false : true}
+            id='clearButton'
           />
         </div>
       </form>

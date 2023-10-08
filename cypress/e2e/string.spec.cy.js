@@ -13,7 +13,7 @@ describe('products management works correctly', function () {
     });
 })
 
-describe('correct turn of the line', function () {
+
     before(function () {
         cy.visit('/recursion');
         cy.get('input').type('Hello');
@@ -82,4 +82,4 @@ describe('correct turn of the line', function () {
                 cy.get('@circle').should('contain.text', testArr[index]);
             });
     });
-})
+//})

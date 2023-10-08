@@ -21,29 +21,31 @@ describe('app works correctly with routes', function () {
         cy.contains("Последовательность Фибоначчи");
     });
 
-    // it('should open a page with sorting algorithms', function () {
-    //     cy.visit(`/sorting`);
-    //     cy.contains("Сортировка массива");
-    // });
+    it('should open a page with sorting algorithms', function () {
+        cy.visit('/');
+        cy.get(`[href="/sorting"]`).click();
+        cy.location('pathname').should('eq', '/sorting');
+        cy.contains("Сортировка массива");
+    });
 
-    // it('should open a page with a stack algorithm', function () {
-    //     cy.visit(`/stack`);
-    //     cy.contains("Стек");
-    // });
+    it('should open a page with a stack algorithm', function () {
+        cy.visit('/');
+        cy.get(`[href="/stack"]`).click();
+        cy.location('pathname').should('eq', '/stack');
+        cy.contains("Стек");
+    });
 
-    // it('should open a page with a queue algorithm', function () {
-    //     cy.visit(`/queue`);
-    //     cy.contains("Очередь");
-    // });
+    it('should open a page with a queue algorithm', function () {
+        cy.visit('/');
+        cy.get(`[href="/queue"]`).click();
+        cy.location('pathname').should('eq', '/queue');
+        cy.contains("Очередь");
+    });
 
-    // it('should open a page with a list algorithm', function () {
-    //     cy.visit(`/list`);
-    //     cy.contains("Связный список");
-    // });
-
-    // it('should open agreement page after continue button click', function() {
-    //   cy.contains('Обычная доставка').click();
-    //   cy.get('button').contains('Продолжить оформление').click();
-    //   cy.contains('Подтверждение заказа');
-    // });
+    it('should open a page with a list algorithm', function () {
+        cy.visit('/');
+        cy.get(`[href="/list"]`).click();
+        cy.location('pathname').should('eq', '/list');
+        cy.contains("Связный список");
+    });
 }); 
