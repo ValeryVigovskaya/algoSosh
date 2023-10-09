@@ -17,7 +17,7 @@ describe('products management works correctly', function async() {
         cy.get('@deleteButton').should('be.disabled');
         cy.get('@clearButton').should('be.disabled');
 
-        //перебором заполнение массива и проверка анимации
+        //перебором заполнение массива и проверка анимации, через each не получилось, слишком много условий
         for (let i = 0; i < testArr.length; i++) {
             cy.get('@input').type('test');
             cy.get('@addButton').should('not.be.disabled').contains('Добавить').click();
