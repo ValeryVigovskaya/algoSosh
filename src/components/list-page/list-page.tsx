@@ -181,6 +181,7 @@ export const ListPage: React.FC = () => {
       { value: values.value, color: ElementStates.Modified },
       indexNumber
     );
+    await timeout(SHORT_DELAY_IN_MS);
     setList(list);
     setStringArr([...list.toArray()]);
     await timeout(SHORT_DELAY_IN_MS);

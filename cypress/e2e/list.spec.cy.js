@@ -14,7 +14,7 @@ describe('products management works correctly', function () {
         cy.get('@containerInputValue').find('#deleteHead').as('deleteTail');
         cy.get('@containerInputIndex').find('#addByIndex').as('addByIndex');
         cy.get('@containerInputIndex').find('#deleteByIndex').as('deleteByIndex');
-        //cy.get('ul').as('list');
+        cy.get('ul').as('list');
         cy.get('ul>li').as('array');
     })
 
@@ -49,22 +49,64 @@ describe('products management works correctly', function () {
 
     it('should be a valid addition adding an element to head', () => {
         cy.get('@inputValue').type('test');
-        cy.get('@addHead').should('not.be.disabled').contains('Добавить').click();
+        cy.get('@addHead').should('not.be.disabled').contains('Добавить в head').click();
         cy.get('ul>li').find('[class^=circle_content__]').as('circle-contaiter');
         cy.get('@circle-contaiter').find('[class^=circle_circle__]').as('circle')
-        
+
         //добавление в head
         cy.get('@circle').eq(0).should('contain', 'test');
         cy.get('@circle').eq(0).should('have.css', 'border-color', 'rgb(210, 82, 225)');
         cy.clock();
         cy.tick(500);
-        
+
         //перемещение в начало
         cy.get('@circle').eq(0).should('have.css', 'border-color', 'rgb(127, 224, 81)');
-        cy.tick(500); 
+        cy.tick(500);
         cy.get('@circle').should('have.css', 'border-color', 'rgb(0, 50, 255)');
-        cy.tick(500); 
+        cy.tick(500);
         cy.get('@circle-contaiter').eq(0).should('contain', 'head');
+    });
+
+    it('should be a valid addition adding an element to tail', () => {
+        cy.get('@inputValue').type('test');
+        cy.get('@addTail').should('not.be.disabled').contains('Добавить в tail').click();
+        cy.get('ul>li').find('[class^=circle_content__]').as('circle-contaiter');
+        cy.get('@circle-contaiter').find('[class^=circle_circle__]').as('circle')
+
+        //добавление в tail
+        cy.get('@circle').eq('@list'.length - 2).should('contain', 'test');
+        cy.get('@circle').eq('@list'.length - 2).should('have.css', 'border-color', 'rgb(210, 82, 225)');
+        cy.clock();
+        cy.tick(500);
+
+        //перемещение в конец
+        cy.get('@circle').eq('@list'.length - 1).should('have.css', 'border-color', 'rgb(127, 224, 81)');
+        cy.tick(500);
+        cy.get('@circle').should('have.css', 'border-color', 'rgb(0, 50, 255)');
+        cy.tick(500);
+        cy.get('@circle-contaiter').eq('@list'.length - 1).should('contain', 'tail');
+    });
+
+    it('should be a correct addition adding an element by index', () => {
+        cy.get('@inputValue').type('itsT');
+        cy.get('@inputIndex').type('3');
+        cy.get('@addByIndex').should('not.be.disabled').contains('Добавить по индексу').click();
+        cy.get('ul>li').find('[class^=circle_content__]').as('circle-contaiter');
+        cy.get('@circle-contaiter').find('[class^=circle_circle__]').as('circle');
+        
+        cy.get('ul >li')
+        .should('have.length', 4)
+        .each(($li, index, list) => {
+            cy.get($li).find('[class^=circle_circle__]').as('circle');
+            cy.get('@circle').eq(0).should('contain', 'itsT');
+            if(index < 3){
+                cy.get('@circle').eq(1).should('have.css', 'border-color', 'rgb(210, 82, 225)');
+             }
+            if(index === (list.length - 1)){            
+                cy.get('@circle').eq(1).should('have.css', 'border-color', 'rgb(127, 224, 81)');
+                cy.get('@circle').eq(0).should('have.css', 'border-color', 'rgb(0, 50, 255)');
+            }
+        });
     });
 });
 
