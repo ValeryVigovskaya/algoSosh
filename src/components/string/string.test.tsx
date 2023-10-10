@@ -1,17 +1,11 @@
-import React from "react";
-import renderer from "react-test-renderer";
-import { render, screen, fireEvent, getByTestId } from "@testing-library/react";
 import { sortArray } from "./utils";
 import { ElementStates } from "../../types/element-states";
 import { IString } from "../../types/my-types";
-import { StringComponent } from "./string";
-import { BrowserRouter as Router } from "react-router-dom";
+import {setState, loader} from "./constants"
 
-describe("Тестирование корректного разворота строки", () => {
-const setState = jest.fn() as React.Dispatch<React.SetStateAction<IString[]>>;
-const loader = jest.fn() as (value: React.SetStateAction<boolean>) => void;
+describe("Testing correct line reversal", () => {
 
-  test("Функция с чётным количеством символов работает без ошибок", async () => {
+  it("should be the correct operation of the function with an even number of characters", async () => {
     const stringArray = Array.from("test");
     const testStringArray = Array.from("tset");
     const arrayObj = stringArray.map((value) => ({
@@ -27,7 +21,7 @@ const loader = jest.fn() as (value: React.SetStateAction<boolean>) => void;
     expect(sortingArr).toEqual(arrayTestObj); // Ок
   });
 
-  test("Функция с нечётным количеством символов работает без ошибок", async () => {
+  it("should be the correct operation of the function with an odd number of characters", async () => {
     const stringArray = Array.from("testing");
     const testString = Array.from("gnitset");
     const arrayObj = stringArray.map((value) => ({
@@ -43,7 +37,7 @@ const loader = jest.fn() as (value: React.SetStateAction<boolean>) => void;
     expect(sortingArr).toEqual(arrayTestObj); // Ок
   });
 
-  test("Функция с одним символом работает без ошибок", async () => {
+  it("should be the correct operation of the function with one character working", async () => {
     const stringArray = Array.from("t");
     const testString = Array.from("t");
     const arrayObj = stringArray.map((value) => ({
@@ -59,7 +53,7 @@ const loader = jest.fn() as (value: React.SetStateAction<boolean>) => void;
     expect(sortingArr).toEqual(arrayTestObj); // Ок
   });
 
-  test("Функция с пустой строкой работает без ошибок", async() => {
+  it("should be the function working correctly with an empty string", async() => {
     const stringArray = [] as IString[];
     const sortingArr = await sortArray(stringArray, setState, loader);
 
