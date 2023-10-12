@@ -1,8 +1,12 @@
 //import {IString} from "../fibonacci-page/fibonacci-page";
 import { timeout } from "../../utils/functions";
 import { SHORT_DELAY_IN_MS } from "../../constants/delays";
+
 export const getFibonacciNumbers = (n: number) => {
   let arr: number[] = [1, 1];
+  if(n === 0){
+    return arr = [1];
+  }
   for (let i = 2; i < n + 1; i++) {
     arr.push(arr[i - 2] + arr[i - 1]);
   }

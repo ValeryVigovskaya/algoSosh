@@ -64,7 +64,8 @@ export const QueuePage: React.FC = () => {
         />
         <div className={styles.buttons_container}>
           <Button
-            text="Добавить"
+            text="Добавить"  
+            id='addButton'
             type="submit"
             onClick={(e) => onClick(e, "Добавить")}
             disabled={
@@ -74,14 +75,17 @@ export const QueuePage: React.FC = () => {
                 : false
             }
           />
+        
           <Button
             text="Удалить"
+            id='deleteButton'
             type="submit"
             onClick={(e) => onClick(e, "Удалить")}
             disabled={!queue.isEmpty() ? false : true}
           />
           <Button
             text="Очистить"
+            id='clearButton'
             type="button"
             extraClass={styles.clear}
             onClick={(e) => onClick(e, "Очистить")}

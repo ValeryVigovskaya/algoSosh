@@ -38,6 +38,7 @@ export const StringComponent: React.FC = () => {
           value={values.value}
           name="value"
           onChange={handleChange}
+          data-testid="input"
         />
         <Button
           text="Развернуть"
@@ -45,6 +46,7 @@ export const StringComponent: React.FC = () => {
           isLoader={isLoader}
           onClick={onClick}
           disabled={values.value === "" ? true : false}
+          //data-testid="button"
         />
       </form>
       <ul className={styles.circle_container}>

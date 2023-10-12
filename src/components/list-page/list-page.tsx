@@ -181,6 +181,7 @@ export const ListPage: React.FC = () => {
       { value: values.value, color: ElementStates.Modified },
       indexNumber
     );
+    await timeout(SHORT_DELAY_IN_MS);
     setList(list);
     setStringArr([...list.toArray()]);
     await timeout(SHORT_DELAY_IN_MS);
@@ -270,6 +271,7 @@ export const ListPage: React.FC = () => {
               onClick={(e) => onClick(e)}
               disabled={values.value === "" ? true : false}
               isLoader={current === "Добавить в head" && isLoader}
+              id="addHead"
             />
             <Button
               text="Добавить в tail"
@@ -277,6 +279,7 @@ export const ListPage: React.FC = () => {
               onClick={(e) => onClickTail(e)}
               disabled={values.value === "" ? true : false}
               isLoader={current === "Добавить в tail" && isLoader}
+              id="addTail"
             />
             <Button
               text="Удалить из head"
@@ -285,6 +288,7 @@ export const ListPage: React.FC = () => {
               onClick={(e) => onClickDelHead(e)}
               disabled={isLoader ? true : false}
               isLoader={current === "Удалить из head" && isLoader}
+              id="deleteHead"
             />
             <Button
               text="Удалить из tail"
@@ -293,6 +297,7 @@ export const ListPage: React.FC = () => {
               onClick={(e) => onClickDelTail(e)}
               disabled={isLoader ? true : false}
               isLoader={current === "Удалить из tail" && isLoader}
+              id="deleteTail"
             />
           </div>
         </form>
@@ -312,6 +317,7 @@ export const ListPage: React.FC = () => {
             <Button
               text="Добавить по индексу"
               type="submit"
+              id="addByIndex"
               onClick={(e) => onClickIndex(e)}
               disabled={
                 ((values.value === "" || indexValue.value === "" || (list.toArray().length - 1) < Number(indexValue.value) ) ? true : false) 
@@ -322,6 +328,7 @@ export const ListPage: React.FC = () => {
             <Button
               text="Удалить по индексу"
               type="submit"
+              id="deleteByIndex"
               linkedList="big"
               onClick={(e) => onClickDelIndex(e)}
               disabled={indexValue.value === "" || (list.toArray().length - 1) < Number(indexValue.value) ? true : false}
